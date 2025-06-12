@@ -31,7 +31,8 @@ mod build {
 
         let mut config = gcc::Config::new();
 
-        config.file("lame-3.99.5/libmp3lame/bitstream.c")
+        config
+            .file("lame-3.99.5/libmp3lame/bitstream.c")
             .file("lame-3.99.5/libmp3lame/encoder.c")
             .file("lame-3.99.5/libmp3lame/fft.c")
             .file("lame-3.99.5/libmp3lame/gain_analysis.c")
@@ -51,13 +52,15 @@ mod build {
             .file("lame-3.99.5/libmp3lame/vbrquantize.c")
             .file("lame-3.99.5/libmp3lame/VbrTag.c")
             .file("lame-3.99.5/libmp3lame/version.c")
+            .file("lame-3.99.5/libmp3lame/vector/xmm_quantize_sub.c")
             .include("lame-3.99.5/include")
             .include("lame-3.99.5/libmp3lame")
             .define("HAVE_CONFIG_H", None)
             .define("PIC", None);
 
         if target_os == "windows" {
-            config.define("TAKEHIRO_IEEE754_HACK", None)
+            config
+                .define("TAKEHIRO_IEEE754_HACK", None)
                 .define("FLOAT8", Some("float"))
                 .define("REAL_IS_FLOAT", Some("1"))
                 .define("BS_FORMAT", Some("BINARY"));
